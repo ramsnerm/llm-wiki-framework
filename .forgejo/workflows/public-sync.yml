@@ -31,6 +31,11 @@ name: Public sync
 # marker is exactly the failure mode that would otherwise leak
 # instance-specific content to the public branch.
 #
+# Tags: pushing a tag matching v* on main publishes a lightweight tag of
+# the same name on the cleaned snapshot commit — on the `public` branch's
+# history and on the GitHub mirror. The original tag object from main is
+# never mirrored: it points into the private history.
+#
 # GitHub mirror setup (one-time, done manually — not by the agent):
 # - Actions variable GH_MIRROR_REPO: target repo, e.g.
 #   "github.com/<owner>/<repo>.git" (already set in this repo)
@@ -49,6 +54,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
 
 jobs:
   clean-and-publish:
@@ -128,13 +135,34 @@ jobs:
         run: |
           git push origin "${{ steps.commit.outputs.commit }}:refs/heads/public" --force
 
+      # A tag pushed on main points at a commit of the PRIVATE history.
+      # Mirroring that tag object as-is would hand out exactly the
+      # history the orphan commit exists to withhold. So the tag is
+      # re-created as a lightweight tag on the cleaned snapshot commit
+      # instead — same name, same tree, no link to main.
+      - name: Publish tag on the cleaned snapshot
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          set -e
+          TAG="${GITHUB_REF#refs/tags/}"
+          echo "Publishing tag $TAG -> ${{ steps.commit.outputs.commit }}"
+          git push origin "${{ steps.commit.outputs.commit }}:refs/tags/$TAG" --force
+
       - name: Mirror same commit to GitHub
         env:
           GH_MIRROR_TOKEN: ${{ secrets.GH_MIRROR_TOKEN }}
           GH_MIRROR_REPO: ${{ vars.GH_MIRROR_REPO }}
         run: |
+          set -e
           if [ -z "$GH_MIRROR_TOKEN" ] || [ -z "$GH_MIRROR_REPO" ]; then
             echo "GH_MIRROR_TOKEN or GH_MIRROR_REPO not set — skipping GitHub mirror push."
             exit 0
           fi
-          git push "https://x-access-token:${GH_MIRROR_TOKEN}@${GH_MIRROR_REPO}" "${{ steps.commit.outputs.commit }}:refs/heads/main" --force
+          REMOTE="https://x-access-token:${GH_MIRROR_TOKEN}@${GH_MIRROR_REPO}"
+          git push "$REMOTE" "${{ steps.commit.outputs.commit }}:refs/heads/main" --force
+          case "$GITHUB_REF" in
+            refs/tags/*)
+              TAG="${GITHUB_REF#refs/tags/}"
+              git push "$REMOTE" "${{ steps.commit.outputs.commit }}:refs/tags/$TAG" --force
+              ;;
+          esac

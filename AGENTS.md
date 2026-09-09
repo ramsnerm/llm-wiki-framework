@@ -454,6 +454,12 @@ content ever ends up somewhere it shouldn't), a CI workflow
    public GitHub repository as well. If either isn't set, this step is
    skipped and the `public` branch push still happens normally.
 
+A tag matching `v*` pushed on `main` is published as well: CI creates a
+lightweight tag of the same name on the cleaned snapshot commit, on both
+`public` and the GitHub mirror. The tag object from `main` is never
+mirrored — it points at a commit of the private history, and pushing it
+would make that history retrievable, defeating the orphan-commit design.
+
 The `<!-- private --> ... <!-- /private -->` marker pair is the
 convention for anything instance-specific that has to live inline in a
 framework file for some reason and must never reach `public` (or the
