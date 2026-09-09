@@ -18,7 +18,11 @@ If a change to any of these is proposed upstream, it goes to the origin
 repo above — nothing under `bundles/` is ever included. Keep this list
 in sync with the "Framework files" list in AGENTS.md, "Framework files
 vs. bundle content" — a file added there (like a new `workflows/*.md`
-file, `scripts/wiki_lint.py`, or `.forgejo/workflows/public-sync.yml`)
+file or `scripts/wiki_lint.py`). CI workflows and anything else that
+only exists to run this instance's forge are deliberately absent from
+that list: they are stripped before publishing, so listing them here
+would make `/llm-wiki-check-updates` look upstream for files that don't
+exist there.
 should be added here too, or a correction to it won't reliably reach
 other instances via `/llm-wiki-check-updates`.
 
@@ -43,7 +47,6 @@ other instances via `/llm-wiki-check-updates`.
 - templates/log-entry.md
 - templates/framework-sync.md
 - scripts/wiki_lint.py
-- .forgejo/workflows/public-sync.yml
 
 ## How to propose a change upstream
 

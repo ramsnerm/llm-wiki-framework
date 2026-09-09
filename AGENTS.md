@@ -203,6 +203,7 @@ report covering dead links, orphaned pages, missing frontmatter fields,
 and raw-hash duplicates/mismatches — see `workflows/ingest.md` and
 `workflows/lint.md` for exactly where each check feeds in.
 
+
 This is **entirely optional** and never required — it exists purely to
 make an agent with script execution access (Claude Code, Codex CLI,
 Cursor, etc.) faster and less error-prone at these mechanical checks. An
@@ -426,41 +427,6 @@ direction — is fully covered in `workflows/check-updates.md`. Read it
 before proposing a framework-file change upstream, or before running
 `/llm-wiki-check-updates`.
 
-### Automatic safety net: public-sync CI
-
-As a backstop beyond the discipline above (in case instance-specific
-content ever ends up somewhere it shouldn't), a CI workflow
-(`.forgejo/workflows/public-sync.yml`) runs on every push to `main`. It:
-
-1. Strips, unconditionally:
-   - `bundles/` entirely (all instance knowledge)
-   - `FRAMEWORK-SYNC.md` (this instance's real origin repo reference)
-   - any `<!-- private --> ... <!-- /private -->` block in any tracked
-     Markdown file
-2. Publishes that cleaned tree as an **orphan commit** whose only parent
-   (if any) is the previous `public` branch tip — never a commit from
-   `main`'s history — then force-pushes it to a `public` branch in this
-   same repo. This matters: a plain commit built on top of `main` and
-   force-pushed would still carry the stripped content in its parent
-   history, fully recoverable via `git log`, even though the working
-   tree looks clean. Orphan-rooting the public branch's history is what
-   actually prevents that. It also aborts (fails the run) instead of
-   publishing anything if it finds an unterminated `<!-- private -->`
-   marker in any file, since an unterminated marker would otherwise
-   leave the marker and the content it should have hidden in place.
-3. If a GitHub mirror is configured (Actions variable `GH_MIRROR_REPO`
-   and secret `GH_MIRROR_TOKEN`, set up manually — never by the agent),
-   pushes that same orphan commit to the `main` branch of the configured
-   public GitHub repository as well. If either isn't set, this step is
-   skipped and the `public` branch push still happens normally.
-
-A tag matching `v*` pushed on `main` is published as well: CI creates a
-lightweight tag of the same name on the GitHub mirror, pointing at the
-cleaned snapshot commit. The tag object from `main` is never mirrored —
-it points at a commit of the private history, and pushing it would make
-that history retrievable, defeating the orphan-commit design. The public
-tag is not written back into this repository either: branches and tags
-share one namespace, so it would overwrite this repo's own tag on `main`.
 
 The `<!-- private --> ... <!-- /private -->` marker pair is the
 convention for anything instance-specific that has to live inline in a
@@ -584,12 +550,11 @@ aborts the publish.
 - Anything instance-specific that must live inline in a framework file
   (rare — normally it belongs in `FRAMEWORK-SYNC.md` instead) gets
   wrapped in `<!-- private --> ... <!-- /private -->` markers, so the
-  `public-sync` CI (see "Automatic safety net: public-sync CI" above)
-  strips it before the content ever reaches the `public` branch or the
-  GitHub mirror.
-- Any GitHub-mirror credentials (`GH_MIRROR_TOKEN`) are set up manually
-  by the user directly in Forgejo Actions secrets — the agent never
-  handles, requests, or stores token values itself.
+  publishing pipeline strips it before the content ever reaches any
+  public copy.
+- Any credentials a publishing pipeline needs are set up by the user
+  directly in the forge's secret store — the agent never handles,
+  requests, or stores token values itself.
 - Every wiki-related response starts with the bundle tag
   (`**Bundle: <name>**`, or `**Bundle: unresolved**` before one is
   known), repeated per bundle when a response covers more than one.

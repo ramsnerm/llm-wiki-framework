@@ -271,6 +271,13 @@ def cmd_lint(args):
 
 
 def main():
+    # An explicitly requested help text is a successful run: it prints to
+    # stdout and exits 0, so `wiki_lint.py --help` can be used as a smoke
+    # test in CI. A missing or unknown command is a usage error: stderr,
+    # exit 2.
+    if len(sys.argv) >= 2 and sys.argv[1] in ("-h", "--help", "help"):
+        print(__doc__)
+        return 0
     if len(sys.argv) < 2 or sys.argv[1] not in ("hash", "lint"):
         print(__doc__, file=sys.stderr)
         return 2

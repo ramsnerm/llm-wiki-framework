@@ -156,14 +156,21 @@ your tool's current documentation for the exact path — this changes
 between tools and versions, so don't hardcode it into automation you
 don't control.)
 
-**Set up the public-sync CI mirror in an already-cloned instance:**
+**Set up a public-sync CI mirror in an already-cloned instance:**
+
+The template ships no CI: publishing pipelines depend on the forge, its
+runner labels and its branch layout, so they are instance mechanics
+rather than framework files. If you want a mirror that publishes only
+framework files, ask your agent to build one for your forge:
 
 ```
-Read .forgejo/workflows/public-sync.yml if it exists. If it doesn't,
-copy it from <template-repo-url> unchanged (it's a framework file).
-Then tell me exactly which two things I still need to do manually
-(the GitHub repo + the Actions secret) — don't attempt those yourself,
-just list them clearly.
+I want this repo mirrored to a public repo, framework files only —
+never bundles/, never FRAMEWORK-SYNC.md, and never any block wrapped
+in private markers. Build a CI workflow for <my forge> that
+publishes the cleaned tree as an orphan commit (its parent must be the
+previous published tip, never a commit from this repo's history, or the
+stripped content stays recoverable). Tell me which credentials I have
+to set up myself — don't attempt those yourself.
 ```
 
 ## Corporate environment with Copilot + OneDrive (no local filesystem access)

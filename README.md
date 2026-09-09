@@ -64,7 +64,7 @@ ra-framework-llm-wiki/
 │   └── banner.png
 ├── templates/
 ├── scripts/
-│   └── wiki_lint.py           # optional stdlib-only helper
+│   └── wiki_lint.py           # optional stdlib-only helper (bundles)
 └── bundles/
     └── <name>/              # per bundle: its own taxonomy & folders
 ```
@@ -104,17 +104,6 @@ agent behavior in [AGENTS.md](AGENTS.md) and [workflows/](workflows/).
 
 _(no bundles yet)_
 
-## Mirroring
-
-This repo is auto-mirrored (framework files only, no instance content)
-to a public GitHub repo via CI — see `.forgejo/workflows/public-sync.yml`.
-The published history is orphan-rooted (never built on top of `main`'s
-history), so instance content stripped from the working tree is also
-never recoverable from the mirror's Git history.
-
-Tags matching `v*` are published to the GitHub mirror too — re-created
-on the cleaned snapshot commit rather than mirrored as-is, since the
-original tag points into the private history.
 
 ## License
 
