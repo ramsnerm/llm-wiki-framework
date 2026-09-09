@@ -455,10 +455,12 @@ content ever ends up somewhere it shouldn't), a CI workflow
    skipped and the `public` branch push still happens normally.
 
 A tag matching `v*` pushed on `main` is published as well: CI creates a
-lightweight tag of the same name on the cleaned snapshot commit, on both
-`public` and the GitHub mirror. The tag object from `main` is never
-mirrored — it points at a commit of the private history, and pushing it
-would make that history retrievable, defeating the orphan-commit design.
+lightweight tag of the same name on the GitHub mirror, pointing at the
+cleaned snapshot commit. The tag object from `main` is never mirrored —
+it points at a commit of the private history, and pushing it would make
+that history retrievable, defeating the orphan-commit design. The public
+tag is not written back into this repository either: branches and tags
+share one namespace, so it would overwrite this repo's own tag on `main`.
 
 The `<!-- private --> ... <!-- /private -->` marker pair is the
 convention for anything instance-specific that has to live inline in a

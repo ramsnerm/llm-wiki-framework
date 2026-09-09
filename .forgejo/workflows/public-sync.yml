@@ -32,9 +32,14 @@ name: Public sync
 # instance-specific content to the public branch.
 #
 # Tags: pushing a tag matching v* on main publishes a lightweight tag of
-# the same name on the cleaned snapshot commit — on the `public` branch's
-# history and on the GitHub mirror. The original tag object from main is
-# never mirrored: it points into the private history.
+# the same name on the GitHub mirror, pointing at the cleaned snapshot
+# commit. The tag object from main is never mirrored: it points into the
+# private history, and pushing it would make that history fetchable.
+#
+# The tag is deliberately NOT pushed back into this repository. Branches
+# and tags share one namespace here, so publishing it under the same name
+# would overwrite this repo's own tag on main — the public tag lives on
+# the mirror only.
 #
 # GitHub mirror setup (one-time, done manually — not by the agent):
 # - Actions variable GH_MIRROR_REPO: target repo, e.g.
@@ -124,7 +129,16 @@ jobs:
           git fetch origin public 2>/dev/null || true
           if git rev-parse --verify origin/public >/dev/null 2>&1; then
             PARENT_SHA=$(git rev-parse origin/public)
-            COMMIT=$(git commit-tree "$TREE" -p "$PARENT_SHA" -m "public-sync: clean snapshot from $(git rev-parse --short HEAD)")
+            if [ "$(git rev-parse "$PARENT_SHA^{tree}")" = "$TREE" ]; then
+              # Nothing changed in the published tree — reuse the existing
+              # snapshot instead of stacking an empty commit on top. This
+              # is the normal case when a tag is pushed on a commit whose
+              # branch push already produced a snapshot.
+              echo "Cleaned tree identical to current public tip; reusing $PARENT_SHA"
+              COMMIT="$PARENT_SHA"
+            else
+              COMMIT=$(git commit-tree "$TREE" -p "$PARENT_SHA" -m "public-sync: clean snapshot from $(git rev-parse --short HEAD)")
+            fi
           else
             COMMIT=$(git commit-tree "$TREE" -m "public-sync: clean snapshot from $(git rev-parse --short HEAD)")
           fi
@@ -134,19 +148,6 @@ jobs:
       - name: Push orphan commit to public branch
         run: |
           git push origin "${{ steps.commit.outputs.commit }}:refs/heads/public" --force
-
-      # A tag pushed on main points at a commit of the PRIVATE history.
-      # Mirroring that tag object as-is would hand out exactly the
-      # history the orphan commit exists to withhold. So the tag is
-      # re-created as a lightweight tag on the cleaned snapshot commit
-      # instead — same name, same tree, no link to main.
-      - name: Publish tag on the cleaned snapshot
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          set -e
-          TAG="${GITHUB_REF#refs/tags/}"
-          echo "Publishing tag $TAG -> ${{ steps.commit.outputs.commit }}"
-          git push origin "${{ steps.commit.outputs.commit }}:refs/tags/$TAG" --force
 
       - name: Mirror same commit to GitHub
         env:

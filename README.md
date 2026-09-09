@@ -112,9 +112,9 @@ The published history is orphan-rooted (never built on top of `main`'s
 history), so instance content stripped from the working tree is also
 never recoverable from the mirror's Git history.
 
-Tags matching `v*` are published too — but re-created on the cleaned
-snapshot commit rather than mirrored as-is, since the original tag points
-into the private history.
+Tags matching `v*` are published to the GitHub mirror too — re-created
+on the cleaned snapshot commit rather than mirrored as-is, since the
+original tag points into the private history.
 
 ## License
 
