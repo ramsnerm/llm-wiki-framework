@@ -18,7 +18,7 @@ and ask questions; the agent writes and maintains.
 **This file is the Agent-Skills discovery entry point only.** The
 cross-cutting rules — trust boundary, language, bundle resolution, Git
 discipline, the non-negotiable Rules — live in
-[AGENTS.md](AGENTS.md); the full step-by-step procedure for each
+[AGENTS.md](../../AGENTS.md); the full step-by-step procedure for each
 command lives in its own file under `workflows/` (see AGENTS.md,
 "Workflow files", for which one to read for which command). Read
 `AGENTS.md` in full before running any `/llm-wiki-*` command, then the
@@ -27,13 +27,13 @@ workflow from this summary alone.
 
 ## Orientation
 
-- **Cross-cutting rules and commands**: [AGENTS.md](AGENTS.md) —
+- **Cross-cutting rules and commands**: [AGENTS.md](../../AGENTS.md) —
   authoritative, read this first
 - **Per-command procedure**: `workflows/` — read the one file for the
   command you're about to run (AGENTS.md, "Workflow files", maps
   command → file)
-- **Format/taxonomy specification**: [SPEC.md](SPEC.md)
-- **Getting started**: [QUICKSTART.md](QUICKSTART.md)
+- **Format/taxonomy specification**: [SPEC.md](../../docs/SPEC.md)
+- **Getting started**: [QUICKSTART.md](../../docs/QUICKSTART.md)
 - **Exact file formats/templates**: `templates/`
 - **Optional helper script**: `scripts/wiki_lint.py` (see AGENTS.md,
   "Optional helper scripts")

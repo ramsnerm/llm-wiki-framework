@@ -5,7 +5,7 @@ You are the maintainer of this wiki. The repo is divided into **bundles**
 its own taxonomy. There is no repo-wide fixed folder structure for
 knowledge types — you establish that together with the user, per bundle.
 
-Format details: see [SPEC.md](SPEC.md).
+Format details: see [SPEC.md](docs/SPEC.md).
 
 ## Trust boundary
 
@@ -407,10 +407,11 @@ workflow finishes cleanly.
 This repo is also a public template — that shapes how two different
 kinds of files are treated:
 
-- **Framework files**: `AGENTS.md`, `workflows/*.md`, `SPEC.md`,
-  `QUICKSTART.md`, `README.md`, `SKILL.md`, `templates/*`, `scripts/*`,
-  `CLAUDE.md`, `GEMINI.md` — define how the framework itself works, not
-  this instance's knowledge. `SKILL.md` is the Agent-Skills discovery
+- **Framework files**: `AGENTS.md`, `workflows/*.md`, `docs/SPEC.md`,
+  `docs/QUICKSTART.md`, `README.md`, `skills/llm-wiki-framework/SKILL.md`,
+  `templates/*`, `scripts/*`, `CLAUDE.md`, `GEMINI.md` — define how the
+  framework itself works, not this instance's knowledge.
+  `skills/llm-wiki-framework/SKILL.md` is the Agent-Skills discovery
   entry point (for Claude Code, Cursor, Codex, and other Agent-Skills-
   aware tools) and points to `AGENTS.md` as the source of truth — see
   README.md, "Which tool reads what". `scripts/wiki_lint.py` is the

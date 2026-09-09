@@ -31,9 +31,9 @@ other instances via `/llm-wiki-check-updates`.
 - workflows/maintenance.md
 - workflows/query.md
 - workflows/check-updates.md
-- SKILL.md
-- SPEC.md
-- QUICKSTART.md
+- skills/llm-wiki-framework/SKILL.md
+- docs/SPEC.md
+- docs/QUICKSTART.md
 - README.md
 - CLAUDE.md
 - GEMINI.md

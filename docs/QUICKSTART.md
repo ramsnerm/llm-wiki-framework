@@ -99,7 +99,8 @@ Works with or without `FRAMEWORK-SYNC.md` present (see AGENTS.md,
 origin repo is used directly; otherwise the agent checks Git remotes for
 one that still points at the known public template, and only asks you
 for the origin repo if neither yields an answer. Compares this
-instance's framework files (`AGENTS.md`, `SKILL.md`, `SPEC.md`, etc.)
+instance's framework files (`AGENTS.md`,
+`skills/llm-wiki-framework/SKILL.md`, `docs/SPEC.md`, etc.)
 against the origin repo and reports which ones differ — you then
 confirm, per file, whether to pull the upstream version.
 `/llm-wiki-maintenance` also surfaces a lightweight version of this note
@@ -123,8 +124,9 @@ Clone <template-repo-url> into ./my-wiki. Then:
 1. Remove the existing "origin" remote and add a new one pointing at
    <my-new-empty-repo-url>.
 2. Push the current branch to it.
-3. Confirm AGENTS.md, SKILL.md, and SPEC.md are present at the repo
-   root and read AGENTS.md in full.
+3. Confirm AGENTS.md is present at the repo root, along with
+   skills/llm-wiki-framework/SKILL.md and docs/SPEC.md, and read
+   AGENTS.md in full.
 4. If I want upstream sync later, ask me for the template's real
    origin repo/URL and set up FRAMEWORK-SYNC.md from
    templates/framework-sync.md (never invent the origin).
@@ -137,11 +139,13 @@ cloning the whole repo into your project** (useful if you already have
 a wiki repo elsewhere and just want the skill available):
 
 ```
-Fetch SKILL.md, AGENTS.md, SPEC.md, and everything under templates/
-from <repo-url> (default branch). Install them as a local Agent Skill
-at <skills-install-path-for-your-tool> under the name
-"llm-wiki-framework", preserving the relative paths (templates/ stays
-a subfolder next to SKILL.md). Then confirm the skill is discoverable
+Fetch skills/llm-wiki-framework/SKILL.md, AGENTS.md, docs/SPEC.md,
+and everything under templates/ from <repo-url> (default branch).
+Install them as a local Agent Skill at
+<skills-install-path-for-your-tool> under the name
+"llm-wiki-framework", with SKILL.md at the root of that skill folder
+and AGENTS.md, docs/ and templates/ next to it — then fix up the
+relative links in SKILL.md to match that flattened layout. Then confirm the skill is discoverable
 and read AGENTS.md in full before I use any /llm-wiki-* command.
 ```
 

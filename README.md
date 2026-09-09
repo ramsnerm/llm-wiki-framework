@@ -1,11 +1,13 @@
 # LLM Wiki Framework
 
+![LLM Wiki Framework](docs/banner.png)
+
 An AI-agent-maintained knowledge repository built from plain Markdown +
 YAML frontmatter + Mermaid. No app dependency — any environment that can
 read/write Markdown files (editor, Git repo, SharePoint/OneDrive folder,
 Copilot Agent Builder, Claude Code, Pi, ...) is enough.
 
-**Version 0.0.1** — first tagged release. The format spec (`SPEC.md`) and
+**Version 0.0.1** — first tagged release. The format spec (`docs/SPEC.md`) and
 the command set are usable but not yet frozen; expect breaking changes to
 frontmatter fields and workflow procedures before 0.1.0.
 
@@ -51,11 +53,15 @@ ra-framework-llm-wiki/
 │   ├── maintenance.md
 │   ├── query.md
 │   └── check-updates.md
-├── SKILL.md            # Agent Skills discovery entry point (@AGENTS.md)
+├── skills/
+│   └── llm-wiki-framework/
+│       └── SKILL.md    # Agent Skills discovery entry point (@AGENTS.md)
 ├── CLAUDE.md             # bridge for Claude Code (@AGENTS.md)
 ├── GEMINI.md              # bridge for Gemini CLI (@AGENTS.md)
-├── SPEC.md                  # format/taxonomy specification
-├── QUICKSTART.md
+├── docs/
+│   ├── SPEC.md              # format/taxonomy specification
+│   ├── QUICKSTART.md
+│   └── banner.png
 ├── templates/
 ├── scripts/
 │   └── wiki_lint.py           # optional stdlib-only helper
@@ -68,14 +74,15 @@ ra-framework-llm-wiki/
 | Tool                                  | reads natively            | bridge in this repo |
 |----------------------------------------|----------------------------|---------------------------|
 | OpenAI Codex, Cursor, Jules, Aider, Windsurf, Zed, Amp | `AGENTS.md` directly (delegates to `workflows/*.md` per command) | — |
-| Claude Code, Cursor, and other [Agent Skills](https://agentskills.io)-aware tools | `SKILL.md` (name+description frontmatter, discovered automatically) | points to `AGENTS.md` as source of truth |
+| Claude Code, Cursor, and other [Agent Skills](https://agentskills.io)-aware tools | `skills/llm-wiki-framework/SKILL.md` (name+description frontmatter, discovered automatically) | points to `AGENTS.md` as source of truth |
 | Claude Code (via `AGENTS.md` bridge)   | `CLAUDE.md`                   | imports `AGENTS.md` |
 | Gemini CLI                             | `GEMINI.md`                     | imports `AGENTS.md` (or set `context.fileName` to `AGENTS.md` in settings.json) |
 | GitHub Copilot                          | `.github/copilot-instructions.md`, plus `AGENTS.md`/`CLAUDE.md`/`GEMINI.md` (nearest-wins) | reads AGENTS.md directly |
 | Grok / xAI                               | no reliably documented repo-file convention found | — |
 
 `AGENTS.md` is the source of truth for cross-cutting rules — the other
-files (`SKILL.md`, `CLAUDE.md`, `GEMINI.md`) are just thin redirects/
+files (`skills/llm-wiki-framework/SKILL.md`, `CLAUDE.md`, `GEMINI.md`)
+are just thin redirects/
 discovery entry points, and `workflows/*.md` holds the full step-by-step
 procedure for each individual command (read only the one relevant to
 the command being run — see AGENTS.md, "Workflow files"). Nothing has
@@ -86,11 +93,11 @@ to be maintained twice.
 - Cross-references as plain relative Markdown links (`[text](../x/y.md)`),
   no `[[wikilinks]]`
 - Relationships/graphs as **Mermaid diagrams** directly in `index.md`,
-  derived by a fully deterministic algorithm (see SPEC.md)
+  derived by a fully deterministic algorithm (see docs/SPEC.md)
 - `raw/` is immutable per bundle
 - Plain CommonMark + YAML frontmatter, no app-specific callouts/plugins
 
-Details in [SPEC.md](SPEC.md), setup in [QUICKSTART.md](QUICKSTART.md),
+Details in [SPEC.md](docs/SPEC.md), setup in [QUICKSTART.md](docs/QUICKSTART.md),
 agent behavior in [AGENTS.md](AGENTS.md) and [workflows/](workflows/).
 
 ## Bundle overview

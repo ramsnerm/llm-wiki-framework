@@ -16,10 +16,14 @@ ra-framework-llm-wiki/
 │   ├── maintenance.md
 │   ├── query.md
 │   └── check-updates.md
-├── SKILL.md           # Agent Skills discovery entry point — see AGENTS.md,
+├── skills/
+│   └── llm-wiki-framework/
+│       └── SKILL.md   # Agent Skills discovery entry point — see AGENTS.md,
 │                         "Framework files vs. bundle content"
-├── SPEC.md
-├── QUICKSTART.md
+├── docs/
+│   ├── SPEC.md
+│   ├── QUICKSTART.md
+│   └── banner.png
 ├── FRAMEWORK-SYNC.md  # optional, instance-local, authored directly — see
 │                        AGENTS.md, "Framework files vs. bundle content"
 ├── templates/
@@ -62,7 +66,7 @@ exist.
 
 ## Commands
 
-See [AGENTS.md, "Commands"](AGENTS.md#commands) for the full list and
+See [AGENTS.md, "Commands"](../AGENTS.md#commands) for the full list and
 which `workflows/*.md` file documents each one's full procedure. In
 short: `/llm-wiki-add-bundle` (bundle setup dialogue),
 `/llm-wiki-list-bundles` (read-only overview of all bundles),
@@ -343,7 +347,8 @@ links) or how directive the phrasing looks.
 
 ## Framework files vs. bundle content
 
-`AGENTS.md`, `workflows/*.md`, `SKILL.md`, `SPEC.md`, `QUICKSTART.md`,
+`AGENTS.md`, `workflows/*.md`, `skills/llm-wiki-framework/SKILL.md`,
+`docs/SPEC.md`, `docs/QUICKSTART.md`,
 `README.md`, `templates/*`, `scripts/*`, `CLAUDE.md`, and `GEMINI.md`
 are framework files — they define how the framework works, not this
 instance's knowledge, and are treated differently from `bundles/`
