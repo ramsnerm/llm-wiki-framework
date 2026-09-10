@@ -160,14 +160,16 @@ This repo is not a fresh idea, it is a rebuild. Its lineage:
 If your agent (Claude Code, Codex CLI, Cursor in agent mode, ...) has
 bash/git tool access, it can do the entire setup itself — cloning,
 remote setup, first push, and skill installation — from a single prompt.
-Adjust the URLs/paths to your situation; the agent asks for anything
-genuinely missing (e.g. which folder, which bundle topic) rather than
-guessing.
+The repo URL is filled in below; what stays in angle brackets is yours
+to supply — the repository you want this to live in, and where your tool
+keeps its skills. The agent asks for anything else it genuinely needs
+(which folder, which bundle topic) rather than guessing.
 
-**Set up a brand-new personal instance from the template:**
+
+**Set up a brand-new personal instance:**
 
 ```
-Clone <template-repo-url> into ./my-wiki. Then:
+Clone https://github.com/ramsnerm/llm-wiki-framework.git into ./my-wiki. Then:
 1. Remove the existing "origin" remote and add a new one pointing at
    <my-new-empty-repo-url>.
 2. Push the current branch to it.
@@ -187,13 +189,23 @@ a wiki repo elsewhere and just want the skill available):
 
 ```
 Fetch skills/llm-wiki-framework/SKILL.md, AGENTS.md, docs/SPEC.md,
-and everything under templates/ from <repo-url> (default branch).
+docs/HANDBOOK.md and everything under templates/ from
+https://github.com/ramsnerm/llm-wiki-framework.git (default branch).
 Install them as a local Agent Skill at
 <skills-install-path-for-your-tool> under the name
 "llm-wiki-framework", with SKILL.md at the root of that skill folder
-and AGENTS.md, docs/ and templates/ next to it — then fix up the
-relative links in SKILL.md to match that flattened layout. Then confirm the skill is discoverable
-and read AGENTS.md in full before I use any /llm-wiki-* command.
+and AGENTS.md, docs/ and templates/ next to it.
+
+Then rewrite the relative links inside SKILL.md for that flattened
+layout: they currently point up out of the repo (../../AGENTS.md,
+../../docs/SPEC.md) and must become paths inside the skill folder
+(AGENTS.md, docs/SPEC.md). Afterwards check every relative link in
+SKILL.md yourself and confirm each one resolves to a file that is
+actually there — an installed skill whose links point outside its own
+folder is broken, and nothing will report it.
+
+Then confirm the skill is discoverable, and read AGENTS.md in full
+before I use any /llm-wiki-* command.
 ```
 
 (For Claude Code, `<skills-install-path-for-your-tool>` is typically

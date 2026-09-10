@@ -27,8 +27,26 @@ behavior:
 Report findings, with bundle tag (see AGENTS.md, "Bundle tag in
 responses"). If run across all bundles, one such section per bundle.
 
-If Lint actually changes anything (auto-fills, auto-fixed dead links,
-regenerated Mermaid graph), that's its own commit (or several, if
-thematically separate) — see AGENTS.md, "Git & Versioning". Pure
-findings with no change need no commit and don't require acquiring the
-advisory lock.
+## Record the run in `log.md`
+
+**Every Lint run that finds anything writes an entry to the bundle's
+`log.md`** — including a run that changes nothing. Most rows in the
+table above say *report*, and a report lives in a terminal that will be
+closed: without this, a run that finds ten problems leaves no trace, the
+same ten reappear next week, and nobody can tell whether they were
+considered and accepted or never read.
+
+The entry follows the log format in SPEC.md, "Log format", and lists
+each finding in one line — what, where, and whether it was fixed or left
+for the user. A finding that reappears in a later run is listed again;
+repetition is honest, and a defect nobody has decided about should keep
+asking.
+
+A run that finds nothing writes nothing. An empty log entry every time
+someone runs Lint would bury the entries that matter.
+
+If Lint changes anything (auto-fills, auto-fixed dead links, regenerated
+Mermaid graph), those changes and the log entry go in one commit — see
+AGENTS.md, "Git & Versioning". A run with findings but no changes still
+commits its log entry, and therefore still acquires the advisory lock; a
+run that finds nothing at all commits nothing and needs no lock.

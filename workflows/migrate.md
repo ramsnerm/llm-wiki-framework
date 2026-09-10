@@ -89,7 +89,9 @@ page as a primary source invents provenance that never existed. Both are
 wrong; which one applies is a property of the file, so sort them:
 
 1. **Primary sources** keep their identity: archived into `raw/` under
-   their own names, ingested as ordinary sources. Where the old system
+   their own names — no prefix, since they are not imported wiki content
+   but the material that wiki was built from — and ingested as ordinary
+   sources. Where the old system
    recorded a hash, compare it — if it still matches, say so in the
    source summary; if it does not, the file changed after it was
    recorded and that is worth reporting.
@@ -119,9 +121,13 @@ across as a citation, and do not invent a raw file for it.
 
 Copy every in-scope file into `bundles/<name>/raw/` **unchanged**:
 
-- Preserve the original relative structure under a single prefix, e.g.
-  `raw/imported-<source-name>/<original path>`, so it stays obvious what
-  came from where.
+- **Primary sources** (step 3) go directly into `raw/` under their own
+  filenames — not under any prefix. They are sources in their own right,
+  and filing them as imported wiki content hides the distinction step 3
+  exists to draw. On a name collision, suffix `-02`, `-03`, …
+- **Derived pages** keep their original relative structure under a
+  single prefix, `raw/imported-<source-name>/<original path>`, so it
+  stays obvious what came from where and nothing collides.
 - Never edit, reformat, rename beyond the prefix, or "clean up" a file on
   the way in. `raw/` is append-only and immutable — see AGENTS.md,
   "Deleting & Editing". Conversion happens later, on the typed pages,

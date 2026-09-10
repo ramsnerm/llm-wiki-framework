@@ -1,0 +1,7 @@
+Work in the repository at {INSTANCE}. Read AGENTS.md there in full
+first, then run:
+
+/llm-wiki-query testbundle What is a hypertable, and what does the
+licence situation around compression look like?
+
+Work autonomously: do not ask me anything.

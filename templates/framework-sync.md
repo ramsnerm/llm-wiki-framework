@@ -24,7 +24,9 @@ that list: they are stripped before publishing, so listing them here
 would make `/llm-wiki-check-updates` look upstream for files that don't
 exist there.
 should be added here too, or a correction to it won't reliably reach
-other instances via `/llm-wiki-check-updates`.
+other instances via `/llm-wiki-check-updates`. Individual test cases
+under `tests/cases/` are deliberately not listed: they are examples to
+adapt, not files an instance should have overwritten from upstream.
 
 - AGENTS.md
 - workflows/create-bundle.md
@@ -48,6 +50,9 @@ other instances via `/llm-wiki-check-updates`.
 - templates/log-entry.md
 - templates/framework-sync.md
 - scripts/wiki_lint.py
+- docs/DEVELOPMENT.md
+- tests/README.md
+- tests/run.py
 
 ## How to propose a change upstream
 

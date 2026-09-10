@@ -1,0 +1,11 @@
+Work in the repository at {INSTANCE}. Read AGENTS.md there in full
+first, then run:
+
+/llm-wiki-migrate {WORKDIR}/old-wiki storage
+
+That folder is a small wiki I kept by hand. Migrate all of it into a
+bundle called "storage", content language English.
+
+Work autonomously: do not ask me anything — decide the taxonomy from
+what is already there, make the commits the instructions call for, and
+do not push anywhere.

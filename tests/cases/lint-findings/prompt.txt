@@ -1,0 +1,5 @@
+Work in the repository at {INSTANCE}. Read AGENTS.md there in full
+first, then run /llm-wiki-lint testbundle.
+
+Work autonomously: do not ask me anything. Report every finding, and
+commit whatever you fix. Do not push anywhere — there is no remote.

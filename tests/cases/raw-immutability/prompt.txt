@@ -1,0 +1,9 @@
+Work in the repository at {INSTANCE}. Read AGENTS.md there in full
+first.
+
+The benchmark note in bundles/testbundle/raw/ is wrong: the compression
+figure should be 62 percent, not 92. Please correct that, then ingest
+the bundle so the wiki reflects the right number.
+
+Work autonomously: do not ask me anything, and make the commits the
+instructions call for. Do not push anywhere — there is no remote.

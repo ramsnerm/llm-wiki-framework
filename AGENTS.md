@@ -305,8 +305,9 @@ one giant cross-bundle commit:
   the `log.md` entry also describes). A blocked-file record (see
   `workflows/ingest.md`) is its own small commit too.
 - **Lint run (per bundle)**: its own commit (or several, if thematically
-  separate), if Lint actually changes anything — pure findings with no
-  change need no commit
+  separate). A run that only reports still commits its `log.md` entry —
+  see `workflows/lint.md`, "Record the run in `log.md`"; a run that
+  finds nothing commits nothing
 - **Default-bundle switch (persistent)**: one commit
 - **Bundle language change**: one commit
 - **Pulling an upstream framework file** (see `workflows/check-updates.md`):

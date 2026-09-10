@@ -1,0 +1,5 @@
+Work in the repository at {INSTANCE}. Read AGENTS.md there in full
+first, then run /llm-wiki-ingest testbundle.
+
+Work autonomously: do not ask me anything, and make the commits the
+instructions call for. Do not push anywhere — there is no remote.

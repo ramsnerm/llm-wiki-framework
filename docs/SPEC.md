@@ -342,6 +342,17 @@ Or, for a source that supersedes an earlier one:
 Or, for a raw file that couldn't be processed:
 
 ```markdown
+## YYYY-MM-DD — Lint run
+
+- `entities/foo.md` — dead link to `bar.md`, no unambiguous match; left
+  for the user
+- `concepts/baz.md` — missing `updated:`, auto-filled
+- `concepts/orphan.md` — no incoming links; left for the user
+
+Written whenever a Lint run finds anything, including when it changes
+nothing — see `workflows/lint.md`. A run with no findings writes no
+entry.
+
 ## YYYY-MM-DD — Source "xyz" blocked
 - new: sources/YYYY-MM-DD-xyz.md (ingest_status: unsupported)
 - reason: scanned PDF, no extractable text layer

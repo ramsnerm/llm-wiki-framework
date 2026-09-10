@@ -89,7 +89,15 @@ def parse_frontmatter(text):
     for line in m.group(1).splitlines():
         fm = FIELD_RE.match(line)
         if fm:
-            fields[fm.group(1)] = fm.group(2).strip()
+            value = fm.group(2).strip()
+            # YAML quoting is legitimate and SPEC.md's own examples use
+            # it. Without this, a quoted raw_hash never equals the digest
+            # it is compared against, and the script reports a mismatch
+            # that does not exist -- which is worse than reporting
+            # nothing, because someone will try to "fix" the file.
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+                value = value[1:-1]
+            fields[fm.group(1)] = value
     return fields
 
 

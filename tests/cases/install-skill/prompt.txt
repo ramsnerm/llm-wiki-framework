@@ -1,0 +1,16 @@
+Fetch skills/llm-wiki-framework/SKILL.md, AGENTS.md, docs/SPEC.md,
+docs/HANDBOOK.md and everything under templates/ from {REPO_URL}
+(default branch).
+Install them as a local Agent Skill at {SKILL_DIR} under the name
+"llm-wiki-framework", with SKILL.md at the root of that skill folder
+and AGENTS.md, docs/ and templates/ next to it.
+
+Then rewrite the relative links inside SKILL.md for that flattened
+layout: they currently point up out of the repo (../../AGENTS.md,
+../../docs/SPEC.md) and must become paths inside the skill folder
+(AGENTS.md, docs/SPEC.md). Afterwards check every relative link in
+SKILL.md yourself and confirm each one resolves to a file that is
+actually there — an installed skill whose links point outside its own
+folder is broken, and nothing will report it.
+
+Do not ask me anything — work autonomously and report what you did.

@@ -1,0 +1,15 @@
+Set up a working LLM-Wiki instance from scratch and put a document in it.
+
+1. Clone {REPO_URL} into {WORKDIR}/wiki.
+2. Remove the "origin" remote and add one pointing at {TARGET_REPO},
+   then push the current branch there.
+3. Read AGENTS.md in full.
+4. Create a bundle called "storage" for notes on storage systems —
+   choose a sensible taxonomy for that topic yourself instead of asking
+   me, and set its content language to English.
+5. Copy {WORKDIR}/ceph-bluestore-notes.md into that bundle's raw/
+   directory and ingest it.
+6. Run a lint pass over the bundle and report what it found.
+
+Work autonomously: do not ask me anything, make the commits the
+instructions call for, and push them to the remote from step 2.

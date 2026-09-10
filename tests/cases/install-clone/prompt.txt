@@ -1,0 +1,9 @@
+Clone {REPO_URL} into {WORKDIR}/my-wiki. Then:
+1. Remove the existing "origin" remote and add a new one pointing at
+   {TARGET_REPO}.
+2. Push the current branch to it.
+3. Confirm AGENTS.md is present at the repo root, along with
+   skills/llm-wiki-framework/SKILL.md and docs/SPEC.md, and read
+   AGENTS.md in full.
+Do not create a bundle, and do not ask me anything — work autonomously
+and report what you did when finished.
