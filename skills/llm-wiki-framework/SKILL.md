@@ -3,12 +3,12 @@ name: llm-wiki-framework
 description: Use when building or maintaining an agent-managed knowledge wiki in this repo. Triggers: ingesting sources into a wiki, querying wiki knowledge, linting wiki quality, capturing chat content into the wiki, adding a new knowledge bundle, checking for framework updates, or any mention of "llm-wiki", "knowledge bundle", or the /llm-wiki-* commands.
 ---
 
-# LLM Wiki Framework
+# LLM-Wiki Framework
 
-This repo turns an AI coding agent into the maintainer of a structured,
-agent-managed knowledge wiki — divided into independent **bundles**
-(`bundles/<name>/`), each with its own taxonomy, built from immutable
-raw sources (`raw/`) and compiled into cross-linked, cited wiki pages.
+This repo turns an AI coding agent into the maintainer of structured,
+agent-managed knowledge wikis. Each lives in its own **bundle**
+(`bundles/<name>/`) with its own taxonomy, built from immutable raw
+sources (`raw/`) and compiled into cross-linked, cited wiki pages.
 
 Instead of re-deriving an answer from raw documents on every question
 (classic RAG), the agent reads new sources once, compiles durable
@@ -33,7 +33,7 @@ workflow from this summary alone.
   command you're about to run (AGENTS.md, "Workflow files", maps
   command → file)
 - **Format/taxonomy specification**: [SPEC.md](../../docs/SPEC.md)
-- **Getting started**: [QUICKSTART.md](../../docs/QUICKSTART.md)
+- **Handbook** (concepts, conventions, per-command usage): [HANDBOOK.md](../../docs/HANDBOOK.md)
 - **Exact file formats/templates**: `templates/`
 - **Optional helper script**: `scripts/wiki_lint.py` (see AGENTS.md,
   "Optional helper scripts")
@@ -42,7 +42,7 @@ workflow from this summary alone.
 
 `/llm-wiki-add-bundle`, `/llm-wiki-list-bundles`, `/llm-wiki-capture`,
 `/llm-wiki-ingest`, `/llm-wiki-lint`, `/llm-wiki-maintenance`,
-`/llm-wiki-query`, `/llm-wiki-check-updates`,
+`/llm-wiki-query`, `/llm-wiki-check-updates`, `/llm-wiki-migrate`,
 `/llm-wiki-set-default-bundle`, `/llm-wiki-set-persistent-default-bundle`,
 `/llm-wiki-set-bundle-language`.
 

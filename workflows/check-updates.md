@@ -2,7 +2,7 @@
 
 Covers both directions of keeping this instance's framework files
 (`AGENTS.md`, `workflows/*.md`, `skills/llm-wiki-framework/SKILL.md`,
-`docs/SPEC.md`, `docs/QUICKSTART.md`,
+`docs/SPEC.md`, `docs/HANDBOOK.md`,
 `README.md`, `templates/*`, `scripts/*`, `CLAUDE.md`, `GEMINI.md` — see
 AGENTS.md, "Framework files vs. bundle content") in sync with the
 public template they came from. `bundles/` content is never part of

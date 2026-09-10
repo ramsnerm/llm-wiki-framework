@@ -42,15 +42,13 @@ through the following dialogue:
    - Create `bundles/<name>/log.md`
    - Create `bundles/<name>/raw/` and `bundles/<name>/sources/`, plus one
      folder per confirmed type (`.gitkeep` for each empty folder)
-   - Update the root `README.md` with the new bundle entry in the bundle
-     overview
    - If this is the **first** bundle in the repo: create
      `bundles/.default-bundle` with the name (persistent default)
 6. Then proceed normally into `workflows/ingest.md`, scoped to this
    bundle.
 
-One commit for the entire setup (`index.md`, `log.md`, folders, README
-entry, `.default-bundle` if applicable) — see AGENTS.md, "Git &
+One commit for the entire setup (`index.md`, `log.md`, folders,
+`.default-bundle` if applicable) — see AGENTS.md, "Git &
 Versioning", for the full commit/push discipline, including the remote-
 state check and the advisory lock this workflow acquires and releases
 around that commit.

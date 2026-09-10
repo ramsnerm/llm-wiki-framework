@@ -22,7 +22,7 @@ ra-framework-llm-wiki/
 │                         "Framework files vs. bundle content"
 ├── docs/
 │   ├── SPEC.md
-│   ├── QUICKSTART.md
+│   ├── HANDBOOK.md
 │   └── banner.png
 ├── FRAMEWORK-SYNC.md  # optional, instance-local, authored directly — see
 │                        AGENTS.md, "Framework files vs. bundle content"
@@ -75,7 +75,8 @@ short: `/llm-wiki-add-bundle` (bundle setup dialogue),
 run — same as running both back to back, plus a lightweight upstream
 framework-update note), `/llm-wiki-query` (answer a question, strictly
 read-only), `/llm-wiki-check-updates` (check the origin repo for newer
-framework files), `/llm-wiki-set-default-bundle` (default for the
+framework files), `/llm-wiki-migrate` (one-time import of an existing
+wiki as sources), `/llm-wiki-set-default-bundle` (default for the
 current chat only), `/llm-wiki-set-persistent-default-bundle` (permanent
 default in the repo), `/llm-wiki-set-bundle-language` (change a bundle's
 content language). Ingest/Lint/Maintenance scope to **all** bundles when
@@ -267,6 +268,14 @@ single `## Sources` list at the end of a page is not sufficient on its
 own once a page draws on more than one source; readers should be able to
 tell which source backs which claim.
 
+OKF calls such a link a **citation** (OKF v0.1, §8), and lists them under
+a `# Citations` heading at the end of a page. This spec keeps the same
+term but places the link at the claim rather than only in a list at the
+end: a trailing list says which sources a page used, not which sentence
+rests on which one. A `## Sources` list at the end remains, so the two
+are compatible — a reader coming from OKF finds the citations where they
+expect them, plus the inline attribution.
+
 ## Graph / relationships
 
 A bundle's relationship overview is kept as a Mermaid diagram in its
@@ -348,7 +357,7 @@ links) or how directive the phrasing looks.
 ## Framework files vs. bundle content
 
 `AGENTS.md`, `workflows/*.md`, `skills/llm-wiki-framework/SKILL.md`,
-`docs/SPEC.md`, `docs/QUICKSTART.md`,
+`docs/SPEC.md`, `docs/HANDBOOK.md`,
 `README.md`, `templates/*`, `scripts/*`, `CLAUDE.md`, and `GEMINI.md`
 are framework files — they define how the framework works, not this
 instance's knowledge, and are treated differently from `bundles/`
@@ -364,6 +373,54 @@ doesn't change per instance); the agent only ever reads it, never
 creates or edits it. `templates/framework-sync.md` documents the
 expected structure. `bundles/` content is never part of this,
 regardless of anything in `FRAMEWORK-SYNC.md`.
+
+## Conformance
+
+A bundle conforms to this spec if:
+
+1. Every `.md` file outside `raw/` has parseable YAML frontmatter, and
+   every frontmatter block has a non-empty `type`.
+2. Every `type` value used is declared in the bundle taxonomy in that
+   bundle's `index.md` frontmatter — there is no repo-wide list to check
+   against, so the bundle's own taxonomy is the authority.
+3. `index.md` and `log.md` exist at the bundle root and follow the
+   structures given above.
+4. Every source-summary page names the raw file it summarises and
+   records that file's content hash.
+5. Cross-links between pages are plain relative Markdown paths, and each
+   one resolves.
+6. Frontmatter carries the fields required for its `type` per
+   "Frontmatter for typed pages".
+
+`raw/` is excluded from conformance: its files are source material, not
+knowledge pages, and are kept exactly as they arrived.
+
+Conformance is checkable without judgement — `scripts/wiki_lint.py`
+reports on points 1, 4 and 5 mechanically. Nothing here says the wiki is
+*good*; a conformant bundle can still hold a bad summary.
+
+An OKF-conformant bundle is not automatically conformant here (this spec
+requires the taxonomy declaration and the content hash, which OKF does
+not), and a bundle conformant here satisfies OKF v0.1's structural rules
+as long as its `type` values are also valid OKF types.
+
+## Versioning
+
+This document specifies **version 0.0.1** of the LLM-Wiki Framework
+format, targeting OKF v0.1.
+
+- **Patch**: wording, clarifications, examples — nothing an existing
+  bundle has to change.
+- **Minor**: new optional frontmatter fields, new conventional headings,
+  new commands. Existing bundles stay conformant.
+- **Major**: changes to required fields, to the bundle directory
+  structure, or to the meaning of an existing field. Existing bundles
+  may need migrating, and the change is described in the release notes.
+
+Below 0.1.0 none of this is frozen — see the version note in
+`README.md`. A bundle MAY record the version it was built against as
+`framework_version: "0.0.1"` in its `index.md` frontmatter; nothing
+requires it, and no tooling reads it today.
 
 ## What's intentionally missing
 

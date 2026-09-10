@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-wiki_lint.py -- optional helper for the LLM Wiki Framework.
+wiki_lint.py -- optional helper for the LLM-Wiki Framework.
 
 Stdlib-only (Python 3.7+), no dependencies, no network access. Performs the
 *deterministic* checks described in AGENTS.md (Ingest step 2, Lint workflow)
