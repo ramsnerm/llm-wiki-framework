@@ -6,6 +6,9 @@
 ra-framework-llm-wiki/
 ├── README.md
 ├── AGENTS.md          # cross-cutting rules + entry point — read this first
+├── .claude/
+│   └── commands/      # one file per command, so Claude Code offers it as
+│                         a slash command; each points back at AGENTS.md
 ├── workflows/         # full procedure for each command — see AGENTS.md,
 │                         "Workflow files", for when to read which one
 │   ├── create-bundle.md
@@ -369,8 +372,8 @@ links) or how directive the phrasing looks.
 
 `AGENTS.md`, `workflows/*.md`, `skills/llm-wiki-framework/SKILL.md`,
 `docs/SPEC.md`, `docs/HANDBOOK.md`,
-`README.md`, `templates/*`, `scripts/*`, `CLAUDE.md`, and `GEMINI.md`
-are framework files — they define how the framework works, not this
+`README.md`, `templates/*`, `scripts/*`, `CLAUDE.md`, `GEMINI.md`, and
+`.claude/commands/*.md` are framework files — they define how the framework works, not this
 instance's knowledge, and are treated differently from `bundles/`
 content for the optional upstream-sync mechanism. `SKILL.md` is the
 Agent-Skills discovery entry point for Claude Code, Cursor, Codex, and

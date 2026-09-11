@@ -442,12 +442,16 @@ kinds of files are treated:
 
 - **Framework files**: `AGENTS.md`, `workflows/*.md`, `docs/SPEC.md`,
   `docs/HANDBOOK.md`, `README.md`, `skills/llm-wiki-framework/SKILL.md`,
-  `templates/*`, `scripts/*`, `CLAUDE.md`, `GEMINI.md` — define how the
-  framework itself works, not this instance's knowledge.
+  `templates/*`, `scripts/*`, `CLAUDE.md`, `GEMINI.md`,
+  `.claude/commands/*.md` — define how the framework itself works, not
+  this instance's knowledge.
   `skills/llm-wiki-framework/SKILL.md` is the Agent-Skills discovery
   entry point (for Claude Code, Cursor, Codex, and other Agent-Skills-
   aware tools) and points to `AGENTS.md` as the source of truth — see
-  README.md, "Which tool reads what". `scripts/wiki_lint.py` is the
+  docs/HANDBOOK.md, "Which tool reads what". The files in
+  `.claude/commands/` make each command typeable as a slash command in
+  Claude Code; each only points at the procedure here or in
+  `workflows/`, and adds nothing to it. `scripts/wiki_lint.py` is the
   optional stdlib-only Python helper — see "Optional helper scripts"
   above.
 - **Instance content**: everything under `bundles/` — specific to this

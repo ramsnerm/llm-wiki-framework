@@ -199,7 +199,8 @@ REPO_ROOT = os.path.dirname(HERE)
 # Copied into a case instance; everything else in the repo is either
 # instance mechanics or the tests themselves.
 FRAMEWORK = ("AGENTS.md", "CLAUDE.md", "GEMINI.md", "README.md",
-             "docs", "workflows", "templates", "scripts", "skills")
+             "docs", "workflows", "templates", "scripts", "skills",
+             ".claude")
 
 
 def build_instance(workdir, fixture):

@@ -1,0 +1,14 @@
+---
+description: Check origin repo for newer framework files (read-only; determines the origin from FRAMEWORK-SYNC.md, then Git remotes, then asks)
+---
+
+Run `/llm-wiki-check-updates` exactly as AGENTS.md defines it.
+
+1. Read `AGENTS.md` in full, unless you already have in this session.
+2. Read `workflows/check-updates.md` in full before doing anything — the procedure lives there,
+   not in this file.
+3. Everything in AGENTS.md applies — trust boundary, bundle resolution,
+   Git discipline, the Rules. This file adds nothing to them; it only
+   makes the command typeable in Claude Code.
+
+Arguments: $ARGUMENTS

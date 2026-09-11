@@ -63,6 +63,7 @@ stale in one of them.
 | OpenAI Codex, Cursor, Jules, Aider, Windsurf, Zed, Amp | [`AGENTS.md`](../AGENTS.md) directly (delegates to `workflows/*.md` per command) | — |
 | Claude Code, Cursor, and other [Agent Skills](https://agentskills.io)-aware tools | [`skills/llm-wiki-framework/SKILL.md`](../skills/llm-wiki-framework/SKILL.md) (name+description frontmatter, discovered automatically) | points to `AGENTS.md` as source of truth |
 | Claude Code (via `AGENTS.md` bridge)   | [`CLAUDE.md`](../CLAUDE.md)                   | imports `AGENTS.md` |
+| Claude Code, slash commands            | `.claude/commands/llm-wiki-*.md`              | one file per command, each pointing at its procedure |
 | Gemini CLI                             | [`GEMINI.md`](../GEMINI.md)                     | imports `AGENTS.md` (or set `context.fileName` to `AGENTS.md` in settings.json) |
 | GitHub Copilot                          | `.github/copilot-instructions.md`, plus `AGENTS.md`/`CLAUDE.md`/`GEMINI.md` (nearest-wins) | reads AGENTS.md directly |
 | Grok / xAI                               | no reliably documented repo-file convention found | — |
@@ -96,9 +97,15 @@ automatically.
 
 That is why nothing depends on a tool-specific feature:
 
-- The commands are trigger words recognised in ordinary chat, not
-  entries in a slash-command registry. Typing
-  `/llm-wiki-ingest` works, and so does asking for it in plain words.
+- The commands are trigger words the agent recognises from
+  `AGENTS.md`, so asking for one in plain words always works, in any
+  tool. The slash form is a different matter: a tool that has its own
+  command registry intercepts a leading `/` and answers "unknown
+  command" before the agent ever sees it. For Claude Code that is what
+  `.claude/commands/` is for — one file per command, each pointing back
+  at its procedure — so `/llm-wiki-ingest` works there too. In a tool
+  without such files, write the command without the slash, or just say
+  what you want.
 - `AGENTS.md` is plain Markdown with no frontmatter requirement of its
   own, so it can be pasted anywhere an agent takes instructions.
 - The helper scripts are optional throughout: an agent that cannot
