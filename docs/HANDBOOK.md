@@ -303,9 +303,33 @@ never bundles/, never FRAMEWORK-SYNC.md, and never any block wrapped
 in private markers. Build a CI workflow for <my forge> that
 publishes the cleaned tree as an orphan commit (its parent must be the
 previous published tip, never a commit from this repo's history, or the
-stripped content stays recoverable). Tell me which credentials I have
-to set up myself — don't attempt those yourself.
+stripped content stays recoverable). Author the published commits as
+me, carry over the Co-Authored-By trailers of the commits being
+published, and filter every outgoing line for anything naming this
+instance. Publish tags as annotated tags on the matching snapshot, and
+never let a tag run move a branch. Add a manual trigger that runs the
+current workflow. Tell me which credentials I have to set up myself —
+don't attempt those yourself.
 ```
+
+Three things in that prompt look like detail and are not:
+
+- **Authorship.** A bot address matches no account on the public host,
+  so a mirror authored by one credits nobody. And squashing many
+  commits into one snapshot drops every co-author they named — carry
+  those trailers over, or whoever you wrote the work with disappears
+  from it.
+- **A tag run must not move a branch.** It is tempting to publish the
+  tagged tree to the mirror's main along with the tag. Then re-pushing
+  an old tag republishes that old tree as the newest main.
+- **A tag run executes the workflow as it was at the tagged commit,**
+  not as it is now. So fixing the tag behaviour does nothing for tags
+  created before the fix: re-push one and the old workflow runs, with
+  the old bug. That is what the manual trigger is for — it always runs
+  the current workflow, so an old tag can be republished under the
+  current rules. Both of these happened in the repository this
+  framework is developed in, one after the other, the second while
+  fixing the first.
 
 ## Copilot with OneDrive, without local file access
 
